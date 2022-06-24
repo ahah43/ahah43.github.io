@@ -8,7 +8,7 @@ license that can be found in the LICENSE file.
   <head>
 <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="#">
-    <title>Core Designer</title> 
+    <title>Cross Section Designer for Laminated Circular Core</title> 
 <style>
 * {
   box-sizing: border-box;
@@ -31,7 +31,8 @@ license that can be found in the LICENSE file.
   </head>
 
   <body>
-<h2>Core Designer</h2>
+<h2>Cross Section Designer for Laminated Circular Core<br>
+by: Ahmed Hassan, ahah43210@gmail.com</h2>
     <script src="wasm_exec.js"></script>
 
     <script>
@@ -81,7 +82,7 @@ function toggle() {
 
 <div class="row">
   <div class="column" style="background-color:white;">
-    <h2>Available Si-Steel Sheet Sizes</h2>
+    <h3>Available Si-Steel Sheet Sizes</h3>
 <input type="checkbox" id="280" name="Steps" value=280 checked=true data-t=0.0><label id="L280" for="280"> 280 </label><br>
 <input type="checkbox" id="270" name="Steps" value=270 checked=true data-t=0.0><label id="L270" for="270"> 270 </label><br>
 <input type="checkbox" id="260" name="Steps" value=260 checked=true data-t=0.0><label id="L260" for="260"> 260 </label><br>
@@ -108,7 +109,7 @@ function toggle() {
 <input type="checkbox" id="50" name="Steps" value=50 checked=true data-t=0.0><label id="L50" for="50"> 50 </label><br>
   </div>
   <div class="column" style="background-color:white;">
-    <h2>Inputs</h2>
+    <h3>Inputs</h3>
     
 <label> Core Diameter=  </label><input type="number" id="D" value="250" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
 <label> Upper Limit=  </label><input type="number" id="UL" value="280" step="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
@@ -233,4 +234,3 @@ ctx.moveTo(0,0);
         </script>
   </body>
 </html>
-
