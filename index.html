@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+  <head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="#">
+    <title>Core Designer</title> 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width:30%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+  </head>
+
+  <body>
+<h2>Core Designer</h2>
+    <script src="wasm_exec.js"></script>
+
+    <script>
+      if (!WebAssembly.instantiateStreaming) {
+        // polyfill
+        WebAssembly.instantiateStreaming = async (resp, importObject) => {
+          const source = await (await resp).arrayBuffer();
+          return await WebAssembly.instantiate(source, importObject);
+        };
+      }
+
+      const go = new Go();
+
+      let mod, inst;
+
+      WebAssembly.instantiateStreaming(fetch("lib.wasm"), go.importObject).then(
+        async result => {
+          mod = result.module;
+          inst = result.instance;
+          await go.run(inst);
+        }
+      );
+
+      async function run() {
+        await go.run(inst);
+        inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
+      }
+    </script>
+    
+
+
+
+
+
+
+<script>
+function toggle() {
+  checkboxes = document.getElementsByName('Steps');
+    thisState = checkboxes[0].checked ;
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = ! thisState;
+   // console.log(checkboxes[i].id)
+  }
+}
+</script>
+
+
+<div class="row">
+  <div class="column" style="background-color:white;">
+    <h2>Available Si-Steel Sheet Sizes</h2>
+<input type="checkbox" id="280" name="Steps" value=280 checked=true data-t=0.0><label id="L280" for="280"> 280 </label><br>
+<input type="checkbox" id="270" name="Steps" value=270 checked=true data-t=0.0><label id="L270" for="270"> 270 </label><br>
+<input type="checkbox" id="260" name="Steps" value=260 checked=true data-t=0.0><label id="L260" for="260"> 260 </label><br>
+<input type="checkbox" id="250" name="Steps" value=250 checked=true data-t=0.0><label id="L250" for="250"> 250 </label><br>
+<input type="checkbox" id="240" name="Steps" value=240 checked=true data-t=0.0><label id="L240" for="240"> 240 </label><br>
+<input type="checkbox" id="230" name="Steps" value=230 checked=true data-t=0.0><label id="L230" for="230"> 230 </label><br>
+<input type="checkbox" id="220" name="Steps" value=220 checked=true data-t=0.0><label id="L220" for="220"> 220 </label><br>
+<input type="checkbox" id="210" name="Steps" value=210 checked=true data-t=0.0><label id="L210" for="210"> 210 </label><br>
+<input type="checkbox" id="200" name="Steps" value=200 checked=true data-t=0.0><label id="L200" for="200"> 200 </label><br>
+<input type="checkbox" id="190" name="Steps" value=190 checked=true data-t=0.0><label id="L190" for="190"> 190 </label><br>
+<input type="checkbox" id="180" name="Steps" value=180 checked=true data-t=0.0><label id="L180" for="180"> 180 </label><br>
+<input type="checkbox" id="170" name="Steps" value=170 checked=true data-t=0.0><label id="L170" for="170"> 170 </label><br>
+<input type="checkbox" id="160" name="Steps" value=160 checked=true data-t=0.0><label id="L160" for="160"> 160 </label><br>
+<input type="checkbox" id="150" name="Steps" value=150 checked=true data-t=0.0><label id="L150" for="150"> 150 </label><br>
+<input type="checkbox" id="140" name="Steps" value=140 checked=true data-t=0.0><label id="L140" for="140"> 140 </label><br>
+<input type="checkbox" id="130" name="Steps" value=130 checked=true data-t=0.0><label id="L130" for="130"> 130 </label><br>
+<input type="checkbox" id="120" name="Steps" value=120 checked=true data-t=0.0><label id="L120" for="120"> 120 </label><br>
+<input type="checkbox" id="110" name="Steps" value=110 checked=true data-t=0.0><label id="L110" for="110"> 110 </label><br>
+<input type="checkbox" id="100" name="Steps" value=100 checked=true data-t=0.0><label id="L100" for="100"> 100 </label><br>
+<input type="checkbox" id="90" name="Steps" value=90 checked=true data-t=0.0><label id="L90" for="90"> 90 </label><br>
+<input type="checkbox" id="80" name="Steps" value=80 checked=true data-t=0.0><label id="L80" for="80"> 80 </label><br>
+<input type="checkbox" id="70" name="Steps" value=70 checked=true data-t=0.0><label id="L70" for="70"> 70 </label><br>
+<input type="checkbox" id="60" name="Steps" value=60 checked=true data-t=0.0><label id="L60" for="60"> 60 </label><br>
+<input type="checkbox" id="50" name="Steps" value=50 checked=true data-t=0.0><label id="L50" for="50"> 50 </label><br>
+  </div>
+  <div class="column" style="background-color:white;">
+    <h2>Inputs</h2>
+    
+<label> Core Diameter=  </label><input type="number" id="D" value="250" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
+<label> Upper Limit=  </label><input type="number" id="UL" value="280" step="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
+<label> Lower Limit=  </label><input type="number" id="LL" value="50" step="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
+
+<label> sheet thickness= </label><input type="text" id="th" value="0.27" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 30%;margin-bottom:10px;font-size:20pt"/>mm<br>
+<label> Stacking Factor= </label><input type="text" id="SF" value="0.965" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 30%;margin-bottom:10px;font-size:20pt"/><br>
+<label> Number of steps =  </label><input type="number" id="k" value="7" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 30%;margin-bottom:10px%;font-size:20pt"/><br>
+<!--<label> Best area=  </label><input type="text" id="result" disabled ="true" style="width: 40%"/>mm2 <br>-->
+<h2 id= "result"> </h2>
+  </div>
+
+<div id="DrawingArea" class="column" style="background-color:#00000z;"> 
+<button onClick="nowsee();" id="Run" style="width: 90%; height: 50px;color: red;"/>RUN</button>
+ </div>
+        <div id="DrawingArea" class="column" style="background-color:#00000z;"> 
+            <!-- <canvas id="canvas" width="400" height="400" -->
+            <!-- style="border:0px solid #c3c3c3;"> -->
+            <!-- Your browser does not support the canvas element. -->
+            <!-- </canvas> -->
+        </div>
+
+</div>
+<script>
+        function nowsee() {
+see();
+drawCore();
+ 
+}
+
+function mytable() {
+  var x = document.createElement("TABLE");
+  x.setAttribute("id", "myTable");
+  document.body.appendChild(x);
+
+  var y = document.createElement("TR");
+  y.setAttribute("id", "myTr");
+  document.getElementById("myTable").appendChild(y);
+
+  var z = document.createElement("TD");
+  var t = document.createTextNode("cell");
+  z.appendChild(t);
+  document.getElementById("myTr").appendChild(z);
+}
+
+
+        function drawCore() {
+        //e = document.querySelector("canvas");
+        //e.remove();
+        //canvas = document.getElementById('canvas');
+        // select the target element
+        //canvas.remove();
+        //delete canvas;
+        //canvas = document.createElement("canvas");
+        //canvas.setAttribute('id', 'canvas');
+        //DrawingArea = document.getElementById("DrawingArea")
+        //DrawingArea.innerHTML = "";
+        //DrawingArea.appendChild(canvas);
+		oldCanvas = document.getElementById("canvas");
+		if (oldCanvas != null){oldCanvas.remove()};
+		canvas = document.createElement("CANVAS");
+		canvas.setAttribute("id","canvas");
+		canvas.setAttribute("width",400);
+		canvas.setAttribute("height",400);
+		DrawingArea = document.getElementById("DrawingArea")
+        //DrawingArea.innerHTML = "";
+        DrawingArea.appendChild(canvas);
+		
+        //canvas = document.getElementById("canvas")
+        checkboxes = document.getElementsByName('Steps');
+        const R = 0.5*parseFloat(document.getElementById('D').value);
+        const th = parseFloat(document.getElementById('th').value);
+        var accumulateH = 0.0;
+        const Ru = canvas.width/2;
+        const thisRatio = 2*Ru/R;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        ctx.save();
+        //ctx.translate(canvas.width/2,canvas.height/2);     
+        //ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.fillStyle = "#FF0000";
+           // ctx.globalAlpha = 0.7;
+//        ctx.beginPath();
+        console.log("**********")
+         for(var i=0, n=checkboxes.length;i<n;i++) {
+            thisT = checkboxes[i].getAttribute("data-t");
+            thiscorner = parseFloat(thisT);
+            thisD = checkboxes[i].getAttribute("value");
+            thisR = parseFloat(thisD)/2.0;
+            thisLable = document.getElementById("L"+thisD);
+            thisLable.innerHTML = " "+thisD;
+                if  (thiscorner > 0.0) {
+            thisLable.innerHTML += " -- "+thiscorner + " mm ";
+            thisLable.innerHTML += "== ("+Math.round(thiscorner/th)+" sheets)";
+            //ctx.fillRect(-thisR*thisRatio,accumulateH*thisRatio,thisR*2*thisRatio,thiscorner*thisRatio);
+            ctx.rect(0,accumulateH*thisRatio,thisR*thisRatio,thiscorner*thisRatio);
+            ctx.fillText( thisLable.innerHTML, 0,(accumulateH+thiscorner/2)*thisRatio)
+            //ctx.fillRect(-thisR*thisRatio,-accumulateH*thisRatio,thisR*2*thisRatio,-thiscorner*thisRatio);
+//            ctx.scale(1.1,1.1);
+                accumulateH += thiscorner;
+                console.log(thisRatio)
+            };
+          }
+console.log("**********")
+//ctx.beginPath();
+console.log(R)
+ctx.moveTo(0,0);
+//ctx.restore();
+
+
+ctx.arc(0,0,2*Ru,0*Math.PI,2*Math.PI);
+//ctx.closePath();
+ctx.stroke();
+//ctx.translate(-canvas.width/2,-canvas.height/2);     
+//thisScale = 400/(R*2.0);
+//ctx.scale(thisScale,thisScale);
+//ctx.noStroke();
+ctx.moveTo(0,0);
+        }
+
+        </script>
+  </body>
+</html>
+
